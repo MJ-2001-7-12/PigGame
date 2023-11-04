@@ -1,6 +1,7 @@
 'use strict';
 
 
+
 const changeBg=() => {
 const player1= document.getElementById("player1")
 const player0= document.getElementById("player0")
@@ -14,3 +15,13 @@ else {
 }
 
 }
+
+
+
+// function updateScore() {
+//     const currentScore = rollDice();
+//     const player1ScoreElement = document.getElementById('score--0');
+//     player1ScoreElement.textContent = currentScore;
+//   }
+
+//   updateScore();
