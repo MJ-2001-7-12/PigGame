@@ -1,5 +1,10 @@
 'use strict';
-
+/*function updateScore() {
+    const currentScore = rollDice();
+    const player1ScoreElement = document.getElementById('score--0');
+    player1ScoreElement.textContent = currentScore;
+  }
+ updateScore();*/
 let player1Score=0,player2score=0;
 
 const changeBg=() => {
@@ -16,3 +21,10 @@ else {
     return player1;  
 }
 }
+
+ 
+
+    const player1ScoreElement = document.getElementById('score--0');
+    let currTotal = Number(player1ScoreElement.textContent)
+    player1ScoreElement.textContent = currTotal+ Number(diceNumber);
+
