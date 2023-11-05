@@ -29,12 +29,10 @@ function rollDice(){
 
     }else{
         
-       updateScore(playerId,diceNumber);
-
+    updateScore(playerId,diceNumber);
+    
     }
-
 }
-
 
 
 
@@ -59,12 +57,29 @@ function updateScore(playerId, diceNumber){
     //Current score of player
     document.getElementById(currPlayer).innerHTML = diceNumber;
 
+
+
+
     //Updating total score
     let playerScoreElement = document.getElementById(playerTotalScore);
     let currTotal = Number(playerScoreElement.textContent);
-    playerScoreElement.textContent = currTotal+ Number(diceNumber);
+
+    //Display winner!
+    if( currTotal+diceNumber >=20){
+
+        //console.log(playerId+1+" Won!")
+        alert("PLAYER "+Number(playerId+1)+" WON!");
+        setZero();
+
+    }else{
+
+        playerScoreElement.textContent = currTotal+ Number(diceNumber);
+
+    }
+
 
 }
+
 
 
 //function to switch player
@@ -78,8 +93,7 @@ function switchActivePlayer(){
         player1.classList.remove("player--active");
         player0.classList.add("player--active");
 
-    }
-    else {
+    }else {
 
         player0.classList.remove("player--active");
         player1.classList.add("player--active");
@@ -109,3 +123,4 @@ function getActivePlayer(){
     }
 
 }
+
