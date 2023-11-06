@@ -2,129 +2,94 @@
 
 //onClick of New Game
 function setZero() {
-    //console.log('New Game Clicked');
-    document.getElementById('score--0').textContent = '0';
-    document.getElementById('score--1').textContent = '0';
-    document.getElementById('current--0').textContent = '0';
-    document.getElementById('current--1').textContent = '0';
+  //console.log('New Game Clicked');
+  document.getElementById('score--0').textContent = '0';
+  document.getElementById('score--1').textContent = '0';
+  document.getElementById('current--0').textContent = '0';
+  document.getElementById('current--1').textContent = '0';
 }
-
-
 
 //Function to Roll Dice
 function rollDice() {
+  // Returns a random integer from 1 to 6:
+  let diceNumber = Math.floor(Math.random() * 6) + 1;
+  //console.log(diceNumber)
 
-    // Returns a random integer from 1 to 6:
-    let diceNumber = Math.floor(Math.random() * 6) + 1;
-    //console.log(diceNumber)
+  //Displaying dice
+  document.getElementById('dice').src = `dice-${[diceNumber]}.png`;
 
-    //Displaying dice
-    document.getElementById("dice").src = `dice-${[diceNumber]}.png`;
+  let playerId = getActivePlayer();
 
-    let playerId = getActivePlayer();
+  if (diceNumber == 1) {
+    document.getElementById(`current--${playerId}`).textContent = '0';
+    document.getElementById(`score--${playerId}`).textContent = '0';
 
-    if (diceNumber == 1) {
-
-        document.getElementById(`current--${playerId}`).textContent = '0';
-        document.getElementById(`score--${playerId}`).textContent = '0';
-
-
-        switchActivePlayer();
-
-    } else {
-
-        updateScore(playerId, diceNumber);
-
-    }
+    switchActivePlayer();
+  } else {
+    updateScore(playerId, diceNumber);
+  }
 }
-
-
 
 //Function to update score
 function updateScore(playerId, diceNumber) {
+  let currPlayer;
+  let playerTotalScore;
 
-    let currPlayer;
-    let playerTotalScore;
+  if (playerId == 1) {
+    currPlayer = 'current--1';
+    playerTotalScore = 'score--1';
+  } else {
+    currPlayer = 'current--0';
+    playerTotalScore = 'score--0';
+  }
 
-    if (playerId == 1) {
+  //Current score of player
+  document.getElementById(currPlayer).innerHTML = diceNumber;
 
-        currPlayer = 'current--1';
-        playerTotalScore = 'score--1'
+  //Updating total score
+  let playerScoreElement = document.getElementById(playerTotalScore);
+  let currTotal = Number(playerScoreElement.textContent);
 
-    } else {
-
-        currPlayer = 'current--0';
-        playerTotalScore = 'score--0'
-
-    }
-
-    //Current score of player
-    document.getElementById(currPlayer).innerHTML = diceNumber;
-
-
-
-
-    //Updating total score
-    let playerScoreElement = document.getElementById(playerTotalScore);
-    let currTotal = Number(playerScoreElement.textContent);
-
-    //Display winner!
-    if (currTotal + diceNumber >= 100) {
-
-        //console.log(playerId+1+" Won!")
-        alert("PLAYER " + Number(playerId + 1) + " WON!");
-        setZero();
-
-    } else {
-
-        playerScoreElement.textContent = currTotal + Number(diceNumber);
-
-    }
-
-
+  //Display winner!
+  if (currTotal + diceNumber >= 10) {
+    let winnerPlayer = playerId + 1;
+    playerScoreElement.textContent = currTotal + Number(diceNumber);
+    document.getElementById(`name--${playerId}`).textContent = '🐷WINNER🐷';
+    document.getElementById('body').classList.add('winner-background');
+    setTimeout(() => {
+      setZero();
+      document.getElementById(
+        `name--${playerId}`
+      ).textContent = `Player ${winnerPlayer}`;
+      document.getElementById('body').classList.remove('winner-background');
+    }, 3000);
+  } else {
+    playerScoreElement.textContent = currTotal + Number(diceNumber);
+  }
 }
-
-
 
 //function to switch player
 function switchActivePlayer() {
+  let player0 = document.getElementById('player--0');
+  let player1 = document.getElementById('player--1');
 
-    let player0 = document.getElementById('player--0');
-    let player1 = document.getElementById('player--1');
-
-    if (player1.classList.contains('player--active')) {
-
-        player1.classList.remove("player--active");
-        player0.classList.add("player--active");
-
-    } else {
-
-        player0.classList.remove("player--active");
-        player1.classList.add("player--active");
-
-    }
-
+  if (player1.classList.contains('player--active')) {
+    player1.classList.remove('player--active');
+    player0.classList.add('player--active');
+  } else {
+    player0.classList.remove('player--active');
+    player1.classList.add('player--active');
+  }
 }
-
-
-
 
 //Function to get current active player
 function getActivePlayer() {
+  let player0 = document.getElementById('player--0');
+  let player1 = document.getElementById('player--1');
 
-    let player0 = document.getElementById('player--0');
-    let player1 = document.getElementById('player--1');
-
-    if (player1.classList.contains('player--active')) {
-
-        return 1;
-
-    }
-    else {
-
-        return 0;
-
-    }
-
+  if (player1.classList.contains('player--active')) {
+    return 1;
+  } else {
+    return 0;
+  }
 }
-
