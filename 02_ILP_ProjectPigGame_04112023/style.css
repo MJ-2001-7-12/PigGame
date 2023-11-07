@@ -172,3 +172,6 @@ main {
 .btn--change{
   top: 55rem;
 }
+.winner-background {
+  background: linear-gradient(to top left, #c7365f 0%, #ec8383 100%) !important;
+}
